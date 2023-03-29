@@ -78,12 +78,15 @@ import {
                 onPress={() => setShowModel(false)}
               >
                 <Image
-                  source={require("../../assets/images/paypal.png")}
+                  source={require("../../assets/images/stripe.png")}
                   alt="paypal"
                   resizeMode="contain"
                   w="full"
                   h={34}
-                />
+                  onPress={() => {
+                    navigation.navigate("Stripe");
+                    setShowModel(false);
+                  }} />
               </Pressable>
               <Button
                 w="full"

@@ -18,8 +18,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const paymentMethodes = [
   {
-    image: require("../../assets/images/paypal.png"),
-    alt: "paypal",
+    image: require("../../assets/images/stripe.png"),
+    alt: "stripe",
     icon: "Ionicons",
   },
   {
@@ -92,7 +92,7 @@ function PaymentScreen() {
               CONTINUE
             </Buttone>
             <Text italic textAlign="center">
-              Payment method is <Text bold>Paypal</Text> by default
+              Payment method is <Text bold>Stripe</Text> by default
             </Text>
           </VStack>
         </ScrollView>

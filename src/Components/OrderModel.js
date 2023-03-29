@@ -8,11 +8,14 @@ import {
     Text,
     VStack,
   } from "native-base";
+  import { StripeProvider, usePaymentSheet } from '@stripe/stripe-react-native';
   import React, { useState } from "react";
   import Buttone from "./Buttone";
   import Colors from "../color";
   import { useNavigation } from "@react-navigation/native";
-  
+  import { Alert } from "react-native";
+  import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
+    
   const OrdersInfos = [
     {
       title: "Posts",
@@ -30,11 +33,19 @@ import {
       color: "main",
     },
   ];
-  
-  const OrderModel = () => {
-    const navigation = useNavigation();
-    const [showModel, setShowModel] = useState(false);
+const OrderModel = () => {
+  const navigation = useNavigation();
+  const [showModel, setShowModel] = useState(false);
+  const [ready, setReady] = useState(false);
+  const {initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
+
+
     return (
+        <StripeProvider
+          publishableKey="pk_test_WVfJQZPku7OeJIPQOglqyCsg"
+          urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+          merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+        >
       <Center>
         <Buttone
           onPress={() => setShowModel(true)}
@@ -75,10 +86,13 @@ import {
                 h={45}
                 rounded={3}
                 overflow="hidden"
-                onPress={() => setShowModel(false)}
+                onPress={() => {
+                  navigation.navigate("StripeScreen");
+                  setShowModel(false);
+                }}
               >
                 <Image
-                  source={require("../../assets/images/paypal.png")}
+                  source={require("../../assets/images/stripe.png")}
                   alt="paypal"
                   resizeMode="contain"
                   w="full"
@@ -107,6 +121,7 @@ import {
           </Modal.Content>
         </Modal>
       </Center>
+      </StripeProvider>
     );
   };
   

@@ -7,7 +7,9 @@ import OrderItem from "../Components/OrderItem";
 import PlaceOrderModel from "../Components/PlaceOrderModel";
 import OrderModel from "../Components/OrderModel";
 
-function OrderScreen() {
+import { connect } from 'react-redux'
+function OrderScreen(props) {
+  const {currentUser} = props;
   return (
     <Box bg={Colors.backgroundPurple} flex={1} safeArea pt={6}>
       <Box>
@@ -21,7 +23,7 @@ function OrderScreen() {
             title="DELIVERY INFO"
             success
             subTitle="Delivery: Email"
-            text="Pay Method: PayPal"
+            text="Pay Method: Stripe"
             icon={
               <FontAwesome5
                 name="shipping-fast"
@@ -34,7 +36,7 @@ function OrderScreen() {
             title="DELIVER TO"
             subTitle="Email Address:"
             danger
-            text="jackson@jacksonrossi.com"
+            text={currentUser.email}
             icon={
               <Ionicons name="location-sharp" size={30} color={Colors.white} />
             }
@@ -54,4 +56,8 @@ function OrderScreen() {
   );
 }
 
-export default OrderScreen;
+const mapStateToProps = (store) => ({
+  currentUser: store.userState.currentUser
+})
+
+export default connect(mapStateToProps, null)(OrderScreen)

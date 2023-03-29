@@ -18,6 +18,9 @@ function SingleProductScreen({route}) {
         <Heading bold fontSize={15} mb={2} lineHeight={22}>
           {product.name}
           </Heading>
+          <Heading fontSize={10} mb={2} lineHeight={22}>
+          {product.handle}
+          </Heading>
           <Rating value={4} />
           <HStack space={2} alignItems="center" my={5}>
             <NumericInput 
@@ -47,13 +50,7 @@ function SingleProductScreen({route}) {
           <Text lineHeight = {24} fontSize={12}>
           <Text bold>{product.followers} Followers  </Text>
           {"\n"}
-          South Tampa Born and Raised 
-          {"\n"}
-          Trump 2024 
-          {"\n"}
-          UF 2021 
-          {"\n"}
-          Austin, Texas
+          {product.description}
           </Text>
           <Buttone bg={Colors.main} color={Colors.white} mt={10} onPress={()=> navigation.navigate('Cart')}>
             Add To Cart

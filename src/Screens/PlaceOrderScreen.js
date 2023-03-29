@@ -7,7 +7,10 @@ import OrderItem from "../Components/OrderItem";
 import OrderModel from "../Components/OrderModel";
 import PlaceOrderModel from "../Components/PlaceOrderModel";
 
-function PlaceOrderScreen() {
+import { connect } from 'react-redux'
+
+function PlaceOrderScreen(props) {
+  const {currentUser} = props;
   return (
     <Box bg={Colors.backgroundPurple} flex={1} safeArea pt={6}>
       <Box>
@@ -17,20 +20,20 @@ function PlaceOrderScreen() {
 
           <OrderInfo 
           title={"CUSTOMER"} 
-          subTitle={"Jackson Rossi"} 
-          text={"jackson@jacksonrossi.com"}
+          subTitle={currentUser.name} 
+          text={currentUser.email}
           icon={<FontAwesome5 name="user" size = {30} color = {Colors.white} />}
           />
           <OrderInfo 
           title={"Order Info"} 
           subTitle={"Delivery: 3 Days"} 
-          text={"Pay Method: PayPal"}
+          text={"Pay Method: Stripe"}
           icon={<FontAwesome5 name="shipping-fast" size = {30} color = {Colors.white} />}
           />
           <OrderInfo 
           title={"Delivery Info"} 
-          subTitle={"Confirmation sent to Email"} 
-          text={"jackson@jacksonrossi.com"}
+          subTitle={"Confirmation sent to"} 
+          text={currentUser.email}
           icon={<FontAwesome5 name="paper-plane" size = {30} color = {Colors.white} />}
           />
 
@@ -49,4 +52,8 @@ function PlaceOrderScreen() {
     </Box>
   );
   }
-export default PlaceOrderScreen;
+  const mapStateToProps = (store) => ({
+    currentUser: store.userState.currentUser
+  })
+  
+  export default connect(mapStateToProps, null)(PlaceOrderScreen)
